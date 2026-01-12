@@ -21,29 +21,29 @@
 
 ### 1. Account Management
 
-| Feature | Description |
-|---------|-------------|
-| Sign up with email | Create account with email + password |
-| Sign in | Return to existing account |
-| Password reset | Email-based password recovery |
-| Sign out | Log out of account |
-| Delete account | Remove all data permanently |
+| Feature | Description | Status |
+|---------|-------------|--------|
+| Sign up with email | Create account with email + password | [x] Done |
+| Sign in | Return to existing account | [x] Done |
+| Password reset | Email-based password recovery | [x] Done |
+| Sign out | Log out of account | [x] Done |
+| Delete account | Remove all data permanently | [ ] Pending |
 
 **Implementation Notes**:
-- Use Supabase Auth
-- Email verification required
-- Session persistence (stay logged in)
+- [x] Use Supabase Auth
+- [ ] Email verification required
+- [x] Session persistence (stay logged in)
 
 ---
 
 ### 2. Check-In System
 
-| Feature | Description |
-|---------|-------------|
-| Check-in button | Large, prominent button on main screen |
-| Countdown timer | Shows time until next check-in due |
-| Check-in confirmation | Visual/haptic feedback on success |
-| Check-in history | Record of all check-ins (backend) |
+| Feature | Description | Status |
+|---------|-------------|--------|
+| Check-in button | Large, prominent button on main screen | [ ] Pending |
+| Countdown timer | Shows time until next check-in due | [ ] Pending |
+| Check-in confirmation | Visual/haptic feedback on success | [ ] Pending |
+| Check-in history | Record of all check-ins (backend) | [ ] Pending |
 
 **UI Requirements**:
 - Button must be >100pt diameter
@@ -64,13 +64,13 @@ On check-in:
 
 ### 3. Emergency Contacts
 
-| Feature | Description |
-|---------|-------------|
-| Add contact | Name, phone (required), email (optional) |
-| Edit contact | Update any field |
-| Delete contact | Remove contact with confirmation |
-| Contact list | View all saved contacts |
-| Minimum validation | At least 1 contact required |
+| Feature | Description | Status |
+|---------|-------------|--------|
+| Add contact | Name, phone (required), email (optional) | [ ] Pending |
+| Edit contact | Update any field | [ ] Pending |
+| Delete contact | Remove contact with confirmation | [ ] Pending |
+| Contact list | View all saved contacts | [ ] Pending |
+| Minimum validation | At least 1 contact required | [ ] Pending |
 
 **Validation Rules**:
 - Phone: Valid format (international supported)
@@ -82,12 +82,12 @@ On check-in:
 
 ### 4. Push Notifications
 
-| Feature | Description |
-|---------|-------------|
-| Reminder at 24h | "Check in tomorrow to let contacts know you're OK" |
-| Reminder at 6h | "Check-in due in 6 hours" |
-| Reminder at 1h | "Last chance! Check in within 1 hour" |
-| Overdue notice | "You missed your check-in. Contacts will be notified." |
+| Feature | Description | Status |
+|---------|-------------|--------|
+| Reminder at 24h | "Check in tomorrow to let contacts know you're OK" | [ ] Pending |
+| Reminder at 6h | "Check-in due in 6 hours" | [ ] Pending |
+| Reminder at 1h | "Last chance! Check in within 1 hour" | [ ] Pending |
+| Overdue notice | "You missed your check-in. Contacts will be notified." | [ ] Pending |
 
 **Implementation**:
 - Firebase Cloud Messaging
@@ -98,12 +98,12 @@ On check-in:
 
 ### 5. Emergency Alerts
 
-| Feature | Description |
-|---------|-------------|
-| SMS to contacts | Automated SMS when check-in missed |
-| Email to contacts | Automated email when check-in missed |
-| Grace period | 1 hour after deadline before alerting |
-| Duplicate prevention | No repeat alerts within 24 hours |
+| Feature | Description | Status |
+|---------|-------------|--------|
+| SMS to contacts | Automated SMS when check-in missed | [ ] Pending |
+| Email to contacts | Automated email when check-in missed | [ ] Pending |
+| Grace period | 1 hour after deadline before alerting | [ ] Pending |
+| Duplicate prevention | No repeat alerts within 24 hours | [ ] Pending |
 
 **Alert Message Template**:
 ```
@@ -121,12 +121,14 @@ Body: [Same as SMS + app download link]
 
 ### 6. Settings
 
-| Feature | Description |
-|---------|-------------|
-| Check-in interval | 1-7 days, default 2 |
-| Notification preferences | Enable/disable reminders |
-| Profile management | Update name, phone, email |
-| About/Help | App info, FAQ, support |
+| Feature | Description | Status |
+|---------|-------------|--------|
+| Check-in interval | 1-7 days, default 2 | [ ] Pending |
+| Notification preferences | Enable/disable reminders | [ ] Pending |
+| Profile management | Update name, phone, email | [ ] Pending |
+| About/Help | App info, FAQ, support | [ ] Pending |
+| Profile display | Show current user info | [x] Done |
+| Logout button | Sign out of account | [x] Done |
 
 ---
 

@@ -6,14 +6,14 @@
 
 ## Tech Stack Overview
 
-| Layer | Technology | Rationale |
-|-------|------------|-----------|
-| **Mobile** | Flutter 3.x + Dart | Cross-platform, single codebase, great DX |
-| **State Management** | Riverpod | Type-safe, testable, recommended for Flutter |
-| **Backend** | Supabase | Auth, Postgres, Edge Functions, Realtime |
-| **Push Notifications** | Firebase Cloud Messaging | Industry standard, free tier generous |
-| **SMS** | Twilio | Reliable, good API, reasonable pricing |
-| **Email** | Resend | Modern API, good deliverability |
+| Layer | Technology | Rationale | Status |
+|-------|------------|-----------|--------|
+| **Mobile** | Flutter 3.x + Dart | Cross-platform, single codebase, great DX | [x] Done |
+| **State Management** | Riverpod | Type-safe, testable, recommended for Flutter | [x] Done |
+| **Backend** | Supabase | Auth, Postgres, Edge Functions, Realtime | [x] Client integrated |
+| **Push Notifications** | Firebase Cloud Messaging | Industry standard, free tier generous | [ ] Pending |
+| **SMS** | Twilio | Reliable, good API, reasonable pricing | [ ] Pending |
+| **Email** | Resend | Modern API, good deliverability | [ ] Pending |
 
 ---
 
@@ -65,6 +65,56 @@
 
 ### Project Structure
 
+**Implementation Status:**
+- [x] `main.dart` - Entry point
+- [x] `app.dart` - MaterialApp, theme, routing
+
+**Core:**
+- [x] `core/constants/app_constants.dart` - Intervals, limits
+- [x] `core/constants/supabase_constants.dart` - URLs, keys (env-based)
+- [x] `core/theme/app_theme.dart` - Material 3 theme
+- [x] `core/theme/app_colors.dart` - Color palette
+- [x] `core/utils/validators.dart` - Input validation
+- [ ] `core/utils/formatters.dart` - Date/phone formatting
+
+**Auth Feature:**
+- [x] `features/auth/screens/login_screen.dart`
+- [x] `features/auth/screens/signup_screen.dart`
+- [x] `features/auth/screens/forgot_password_screen.dart`
+- [x] `features/auth/providers/auth_provider.dart`
+- [ ] `features/auth/widgets/auth_form.dart`
+
+**Check-In Feature:**
+- [x] `features/check_in/screens/check_in_screen.dart` (placeholder)
+- [ ] `features/check_in/providers/check_in_provider.dart`
+- [ ] `features/check_in/widgets/check_in_button.dart`
+- [ ] `features/check_in/widgets/countdown_timer.dart`
+
+**Contacts Feature:**
+- [x] `features/contacts/screens/contacts_screen.dart` (placeholder)
+- [ ] `features/contacts/screens/add_contact_screen.dart`
+- [ ] `features/contacts/providers/contacts_provider.dart`
+- [ ] `features/contacts/widgets/contact_card.dart`
+
+**Settings Feature:**
+- [x] `features/settings/screens/settings_screen.dart`
+- [ ] `features/settings/providers/settings_provider.dart`
+
+**Models:**
+- [x] `models/user.dart`
+- [ ] `models/emergency_contact.dart`
+- [ ] `models/check_in.dart`
+
+**Services:**
+- [x] `services/supabase_service.dart` - Supabase client wrapper
+- [ ] `services/notification_service.dart` - FCM handling
+- [ ] `services/storage_service.dart` - Local persistence
+
+**Widgets:**
+- [x] `widgets/app_button.dart`
+- [x] `widgets/app_text_field.dart`
+- [x] `widgets/loading_overlay.dart`
+
 ```
 lib/
 ├── main.dart                     # Entry point
@@ -73,7 +123,7 @@ lib/
 ├── core/
 │   ├── constants/
 │   │   ├── app_constants.dart    # Intervals, limits
-│   │   └── api_constants.dart    # URLs, keys
+│   │   └── supabase_constants.dart # URLs, keys
 │   ├── theme/
 │   │   ├── app_theme.dart        # Material 3 theme
 │   │   └── app_colors.dart       # Color palette
@@ -170,17 +220,17 @@ See [05-database-schema.md](05-database-schema.md) for full schema.
 
 ### Edge Functions
 
-| Function | Trigger | Purpose |
-|----------|---------|---------|
-| `check-missed-checkins` | Cron (every 5 min) | Find overdue users, trigger alerts |
-| `send-alert` | HTTP (internal) | Send SMS + email to contacts |
-| `schedule-reminders` | Cron (every hour) | Queue push notifications |
+| Function | Trigger | Purpose | Status |
+|----------|---------|---------|--------|
+| `check-missed-checkins` | Cron (every 5 min) | Find overdue users, trigger alerts | [ ] Pending |
+| `send-alert` | HTTP (internal) | Send SMS + email to contacts | [ ] Pending |
+| `schedule-reminders` | Cron (every hour) | Queue push notifications | [ ] Pending |
 
 ### Authentication
 
-- **Provider**: Supabase Auth (email/password)
-- **Session**: JWT tokens, auto-refresh
-- **Security**: RLS policies on all tables
+- [x] **Provider**: Supabase Auth (email/password)
+- [x] **Session**: JWT tokens, auto-refresh
+- [ ] **Security**: RLS policies on all tables (requires DB setup)
 
 ---
 
