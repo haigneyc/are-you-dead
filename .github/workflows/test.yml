@@ -22,7 +22,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0'
+          flutter-version: '3.27.0'
           channel: 'stable'
           cache: true
 
@@ -73,7 +73,7 @@ jobs:
         env:
           # Test environment variables (mocked values for testing)
           SUPABASE_URL: https://test.supabase.co
-          SUPABASE_SERVICE_ROLE_KEY: test-service-key
+          SECRET_API_KEY: test-secret-api-key
           TWILIO_ACCOUNT_SID: test-twilio-sid
           TWILIO_AUTH_TOKEN: test-twilio-token
           TWILIO_PHONE_NUMBER: "+15555555555"
