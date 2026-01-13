@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-import 'supabase_service.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Background message handler - must be top-level function
 @pragma('vm:entry-point')
@@ -187,11 +186,14 @@ class NotificationService {
 
   /// Save FCM token to Supabase user profile
   static Future<void> _saveFCMToken(String token) async {
-    final user = SupabaseService.currentUser;
+    final user = Supabase.instance.client.auth.currentUser;
     if (user == null) return;
 
     try {
-      await SupabaseService.updateFCMToken(token);
+      await Supabase.instance.client
+          .from('users')
+          .update({'fcm_token': token})
+          .eq('id', user.id);
       print('FCM token saved');
     } catch (e) {
       print('Error saving FCM token: $e');
@@ -200,11 +202,14 @@ class NotificationService {
 
   /// Clear FCM token on logout
   static Future<void> clearToken() async {
-    final user = SupabaseService.currentUser;
+    final user = Supabase.instance.client.auth.currentUser;
     if (user == null) return;
 
     try {
-      await SupabaseService.updateFCMToken(null);
+      await Supabase.instance.client
+          .from('users')
+          .update({'fcm_token': null})
+          .eq('id', user.id);
       await _messaging.deleteToken();
       print('FCM token cleared');
     } catch (e) {

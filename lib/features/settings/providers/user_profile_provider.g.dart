@@ -47,7 +47,7 @@ final notificationsEnabledProvider = AutoDisposeProvider<bool>.internal(
 // ignore: unused_element
 typedef NotificationsEnabledRef = AutoDisposeProviderRef<bool>;
 String _$userProfileNotifierHash() =>
-    r'4e90133dd1c9208a645cead9689b25b0ff9a8728';
+    r'572b617f6c33c9d09779d5cdca020d8bf431b1a1';
 
 /// Notifier for user profile mutations
 ///

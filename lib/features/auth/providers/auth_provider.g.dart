@@ -6,7 +6,7 @@ part of 'auth_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authStateHash() => r'768e4229e28eae5818ebe7f41a311a5445414d25';
+String _$authStateHash() => r'9540e828b3daecb8539a8b6bf53d7d07f3f07b7b';
 
 /// Provides the current auth state
 ///
@@ -44,7 +44,7 @@ final currentAuthUserProvider = AutoDisposeProvider<User?>.internal(
 // ignore: unused_element
 typedef CurrentAuthUserRef = AutoDisposeProviderRef<User?>;
 String _$currentUserProfileHash() =>
-    r'159bc539f1c15960fa8b386ccfe59d4f4d0ba6f3';
+    r'0833bd58029cce24ff1feec6c3ab3a42a1f2d86d';
 
 /// Provides the current user profile from the database
 ///
@@ -63,7 +63,7 @@ final currentUserProfileProvider = AutoDisposeFutureProvider<AppUser?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentUserProfileRef = AutoDisposeFutureProviderRef<AppUser?>;
-String _$authNotifierHash() => r'320aabd5e3b2e7f454a9d9c95e66ceeab70e28a4';
+String _$authNotifierHash() => r'70e04df9d0c5b8c3ac8bf13166860764c9f7843b';
 
 /// Auth notifier for handling auth actions
 ///

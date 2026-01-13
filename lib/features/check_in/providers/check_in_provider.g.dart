@@ -43,7 +43,7 @@ final isOverdueProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef IsOverdueRef = AutoDisposeProviderRef<bool>;
-String _$checkInNotifierHash() => r'7496a746fb25ee23984973f3c6e4da3bc961790a';
+String _$checkInNotifierHash() => r'a67536eb83e782fbccb4351ab7da2517ac1e9a29';
 
 /// Check-in notifier for managing check-in state and actions
 ///

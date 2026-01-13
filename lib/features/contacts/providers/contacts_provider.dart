@@ -2,7 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../models/emergency_contact.dart';
-import '../../../services/supabase_service.dart';
+import '../../../services/service_providers.dart';
+import '../../../services/supabase_service_interface.dart';
 
 part 'contacts_provider.freezed.dart';
 part 'contacts_provider.g.dart';
@@ -22,17 +23,17 @@ class ContactsState with _$ContactsState {
 class ContactsNotifier extends _$ContactsNotifier {
   @override
   ContactsState build() {
-    // Load contacts on initialization
-    _loadContacts();
+    // Load contacts on initialization using Future.microtask to defer
+    // state access until after build() returns
+    Future.microtask(_loadContacts);
     return const ContactsState(isLoading: true);
   }
 
   /// Load contacts from Supabase
   Future<void> _loadContacts() async {
-    state = state.copyWith(isLoading: true, error: null);
-
     try {
-      final contacts = await SupabaseService.getContacts();
+      final supabase = ref.read(supabaseServiceProvider);
+      final contacts = await supabase.getContacts();
       state = state.copyWith(
         contacts: contacts,
         isLoading: false,
@@ -47,6 +48,7 @@ class ContactsNotifier extends _$ContactsNotifier {
 
   /// Refresh contacts from server
   Future<void> refresh() async {
+    state = state.copyWith(isLoading: true, error: null);
     await _loadContacts();
   }
 
@@ -59,7 +61,8 @@ class ContactsNotifier extends _$ContactsNotifier {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      final newContact = await SupabaseService.addContact(
+      final supabase = ref.read(supabaseServiceProvider);
+      final newContact = await supabase.addContact(
         name: name,
         phone: phone,
         email: email,
@@ -89,7 +92,8 @@ class ContactsNotifier extends _$ContactsNotifier {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      await SupabaseService.updateContact(
+      final supabase = ref.read(supabaseServiceProvider);
+      await supabase.updateContact(
         contactId: contactId,
         name: name,
         phone: phone,
@@ -127,7 +131,8 @@ class ContactsNotifier extends _$ContactsNotifier {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      await SupabaseService.deleteContact(contactId);
+      final supabase = ref.read(supabaseServiceProvider);
+      await supabase.deleteContact(contactId);
 
       // Remove from local state
       final updatedContacts =
@@ -171,7 +176,7 @@ bool hasContacts(HasContactsRef ref) {
 @riverpod
 bool canAddContact(CanAddContactRef ref) {
   final count = ref.watch(contactsCountProvider);
-  return count < SupabaseService.maxContacts;
+  return count < ISupabaseService.maxContacts;
 }
 
 /// Provider to get a specific contact by ID

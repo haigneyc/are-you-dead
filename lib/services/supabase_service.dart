@@ -3,14 +3,16 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../core/constants/supabase_constants.dart';
 import '../models/emergency_contact.dart';
 import '../models/user.dart';
+import 'supabase_service_interface.dart';
 
-/// Service for interacting with Supabase
-class SupabaseService {
-  SupabaseService._();
+/// Production implementation of [ISupabaseService].
+/// Wraps the Supabase client for all backend operations.
+class SupabaseService implements ISupabaseService {
+  SupabaseService();
 
-  static SupabaseClient get client => Supabase.instance.client;
+  SupabaseClient get _client => Supabase.instance.client;
 
-  /// Initialize Supabase
+  /// Initialize Supabase (call once at app startup)
   static Future<void> initialize() async {
     if (!SupabaseConstants.isConfigured) {
       throw Exception(
@@ -28,19 +30,19 @@ class SupabaseService {
 
   // --- Authentication ---
 
-  /// Current authenticated user
-  static User? get currentUser => client.auth.currentUser;
+  @override
+  User? get currentUser => _client.auth.currentUser;
 
-  /// Stream of auth state changes
-  static Stream<AuthState> get authStateChanges => client.auth.onAuthStateChange;
+  @override
+  Stream<AuthState> get authStateChanges => _client.auth.onAuthStateChange;
 
-  /// Sign up with email and password
-  static Future<AuthResponse> signUp({
+  @override
+  Future<AuthResponse> signUp({
     required String email,
     required String password,
     String? displayName,
   }) async {
-    final response = await client.auth.signUp(
+    final response = await _client.auth.signUp(
       email: email,
       password: password,
       data: displayName != null ? {'display_name': displayName} : null,
@@ -58,49 +60,49 @@ class SupabaseService {
     return response;
   }
 
-  /// Sign in with email and password
-  static Future<AuthResponse> signIn({
+  @override
+  Future<AuthResponse> signIn({
     required String email,
     required String password,
   }) async {
-    return await client.auth.signInWithPassword(
+    return await _client.auth.signInWithPassword(
       email: email,
       password: password,
     );
   }
 
-  /// Sign out
-  static Future<void> signOut() async {
-    await client.auth.signOut();
+  @override
+  Future<void> signOut() async {
+    await _client.auth.signOut();
   }
 
-  /// Send password reset email
-  static Future<void> resetPassword(String email) async {
-    await client.auth.resetPasswordForEmail(email);
+  @override
+  Future<void> resetPassword(String email) async {
+    await _client.auth.resetPasswordForEmail(email);
   }
 
   // --- User Profile ---
 
   /// Create user profile in the users table
-  static Future<void> _createUserProfile({
+  Future<void> _createUserProfile({
     required String userId,
     required String email,
     String? displayName,
   }) async {
-    await client.from('users').insert({
+    await _client.from('users').insert({
       'id': userId,
       'email': email,
       'display_name': displayName,
     });
   }
 
-  /// Get current user profile, creating it if it doesn't exist
-  static Future<AppUser?> getUserProfile() async {
+  @override
+  Future<AppUser?> getUserProfile() async {
     final user = currentUser;
     if (user == null) return null;
 
     // Try to get existing profile
-    final response = await client
+    final response = await _client
         .from('users')
         .select()
         .eq('id', user.id)
@@ -119,7 +121,7 @@ class SupabaseService {
     );
 
     // Fetch the newly created profile
-    final newResponse = await client
+    final newResponse = await _client
         .from('users')
         .select()
         .eq('id', user.id)
@@ -128,8 +130,8 @@ class SupabaseService {
     return AppUser.fromJson(newResponse);
   }
 
-  /// Update user profile
-  static Future<void> updateUserProfile({
+  @override
+  Future<void> updateUserProfile({
     String? displayName,
     String? phone,
     int? checkInIntervalHours,
@@ -145,17 +147,17 @@ class SupabaseService {
     if (timezone != null) updates['timezone'] = timezone;
 
     if (updates.isNotEmpty) {
-      await client.from('users').update(updates).eq('id', user.id);
+      await _client.from('users').update(updates).eq('id', user.id);
     }
   }
 
-  /// Delete user account
-  static Future<void> deleteAccount() async {
+  @override
+  Future<void> deleteAccount() async {
     final user = currentUser;
     if (user == null) throw Exception('Not authenticated');
 
     // Delete user data (cascade will handle related tables)
-    await client.from('users').delete().eq('id', user.id);
+    await _client.from('users').delete().eq('id', user.id);
 
     // Sign out
     await signOut();
@@ -163,12 +165,12 @@ class SupabaseService {
 
   // --- FCM Token ---
 
-  /// Update FCM token for push notifications
-  static Future<void> updateFCMToken(String? token) async {
+  @override
+  Future<void> updateFCMToken(String? token) async {
     final user = currentUser;
     if (user == null) return;
 
-    await client
+    await _client
         .from('users')
         .update({'fcm_token': token})
         .eq('id', user.id);
@@ -176,14 +178,13 @@ class SupabaseService {
 
   // --- Check-In ---
 
-  /// Perform a check-in using the database function
-  /// Returns the updated user profile
-  static Future<AppUser> performCheckIn() async {
+  @override
+  Future<AppUser> performCheckIn() async {
     final user = currentUser;
     if (user == null) throw Exception('Not authenticated');
 
     // Call the database function
-    await client.rpc('perform_check_in', params: {'p_user_id': user.id});
+    await _client.rpc('perform_check_in', params: {'p_user_id': user.id});
 
     // Return updated user profile
     final profile = await getUserProfile();
@@ -193,15 +194,12 @@ class SupabaseService {
 
   // --- Emergency Contacts ---
 
-  /// Maximum number of contacts allowed per user
-  static const int maxContacts = 5;
-
-  /// Get all emergency contacts for the current user
-  static Future<List<EmergencyContact>> getContacts() async {
+  @override
+  Future<List<EmergencyContact>> getContacts() async {
     final user = currentUser;
     if (user == null) throw Exception('Not authenticated');
 
-    final response = await client
+    final response = await _client
         .from('emergency_contacts')
         .select()
         .eq('user_id', user.id)
@@ -212,8 +210,8 @@ class SupabaseService {
         .toList();
   }
 
-  /// Add a new emergency contact
-  static Future<EmergencyContact> addContact({
+  @override
+  Future<EmergencyContact> addContact({
     required String name,
     required String phone,
     String? email,
@@ -223,8 +221,8 @@ class SupabaseService {
 
     // Check contact limit
     final existingContacts = await getContacts();
-    if (existingContacts.length >= maxContacts) {
-      throw Exception('Maximum of $maxContacts contacts allowed');
+    if (existingContacts.length >= ISupabaseService.maxContacts) {
+      throw Exception('Maximum of ${ISupabaseService.maxContacts} contacts allowed');
     }
 
     // Calculate next priority
@@ -232,7 +230,7 @@ class SupabaseService {
         ? 1
         : existingContacts.map((c) => c.priority).reduce((a, b) => a > b ? a : b) + 1;
 
-    final response = await client.from('emergency_contacts').insert({
+    final response = await _client.from('emergency_contacts').insert({
       'user_id': user.id,
       'name': name,
       'phone': phone,
@@ -243,8 +241,8 @@ class SupabaseService {
     return EmergencyContact.fromJson(response);
   }
 
-  /// Update an existing emergency contact
-  static Future<void> updateContact({
+  @override
+  Future<void> updateContact({
     required String contactId,
     String? name,
     String? phone,
@@ -261,7 +259,7 @@ class SupabaseService {
     if (priority != null) updates['priority'] = priority;
 
     if (updates.isNotEmpty) {
-      await client
+      await _client
           .from('emergency_contacts')
           .update(updates)
           .eq('id', contactId)
@@ -269,12 +267,12 @@ class SupabaseService {
     }
   }
 
-  /// Delete an emergency contact
-  static Future<void> deleteContact(String contactId) async {
+  @override
+  Future<void> deleteContact(String contactId) async {
     final user = currentUser;
     if (user == null) throw Exception('Not authenticated');
 
-    await client
+    await _client
         .from('emergency_contacts')
         .delete()
         .eq('id', contactId)

@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../services/notification_service.dart';
-import '../../../services/supabase_service.dart';
+import '../../../services/service_providers.dart';
 import '../../auth/providers/auth_provider.dart';
 
 part 'user_profile_provider.freezed.dart';
@@ -33,7 +33,8 @@ class UserProfileNotifier extends _$UserProfileNotifier {
     state = state.copyWith(isSaving: true, error: null);
 
     try {
-      await SupabaseService.updateUserProfile(
+      final supabase = ref.read(supabaseServiceProvider);
+      await supabase.updateUserProfile(
         displayName: displayName,
         phone: phone,
       );
@@ -55,7 +56,8 @@ class UserProfileNotifier extends _$UserProfileNotifier {
     state = state.copyWith(isSaving: true, error: null);
 
     try {
-      await SupabaseService.updateUserProfile(
+      final supabase = ref.read(supabaseServiceProvider);
+      await supabase.updateUserProfile(
         checkInIntervalHours: hours,
       );
 
@@ -78,7 +80,8 @@ class UserProfileNotifier extends _$UserProfileNotifier {
         await NotificationService.registerToken();
       } else {
         // Clear FCM token to disable notifications
-        await SupabaseService.updateFCMToken(null);
+        final supabase = ref.read(supabaseServiceProvider);
+        await supabase.updateFCMToken(null);
       }
 
       ref.invalidate(currentUserProfileProvider);

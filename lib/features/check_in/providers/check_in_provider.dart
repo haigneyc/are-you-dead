@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../services/supabase_service.dart';
+import '../../../services/service_providers.dart';
 import '../../auth/providers/auth_provider.dart';
 
 part 'check_in_provider.freezed.dart';
@@ -67,7 +67,8 @@ class CheckInNotifier extends _$CheckInNotifier {
 
     try {
       // Call Supabase to persist the check-in
-      final updatedUser = await SupabaseService.performCheckIn();
+      final supabase = ref.read(supabaseServiceProvider);
+      final updatedUser = await supabase.performCheckIn();
 
       // Update state with data from server
       state = state.copyWith(
@@ -94,7 +95,8 @@ class CheckInNotifier extends _$CheckInNotifier {
   /// Update the check-in interval (in hours)
   Future<void> setInterval(int hours) async {
     try {
-      await SupabaseService.updateUserProfile(checkInIntervalHours: hours);
+      final supabase = ref.read(supabaseServiceProvider);
+      await supabase.updateUserProfile(checkInIntervalHours: hours);
 
       // Recalculate next due based on new interval
       final lastCheckIn = state.lastCheckIn;

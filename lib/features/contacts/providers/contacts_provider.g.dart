@@ -43,7 +43,7 @@ final hasContactsProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef HasContactsRef = AutoDisposeProviderRef<bool>;
-String _$canAddContactHash() => r'2f7dca0a1d6a7b7a980e4131568652434f71f94f';
+String _$canAddContactHash() => r'8b6399bcadb0a54cd654d2c215487d2002d24c72';
 
 /// Provider to check if user can add more contacts
 ///
@@ -225,7 +225,7 @@ class _ContactByIdProviderElement
   String get contactId => (origin as ContactByIdProvider).contactId;
 }
 
-String _$contactsNotifierHash() => r'0afad5657c9f8a80b1ac33a23b2a54b5c0e65ed0';
+String _$contactsNotifierHash() => r'4f3aa8c41451d1a4bde5e4ab94997dfe60abd771';
 
 /// Contacts notifier for managing emergency contacts
 ///

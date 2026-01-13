@@ -5,14 +5,15 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../models/user.dart';
 import '../../../services/notification_service.dart';
-import '../../../services/supabase_service.dart';
+import '../../../services/service_providers.dart';
 
 part 'auth_provider.g.dart';
 
 /// Provides the current auth state
 @riverpod
 Stream<AuthState> authState(AuthStateRef ref) {
-  return SupabaseService.authStateChanges;
+  final supabase = ref.watch(supabaseServiceProvider);
+  return supabase.authStateChanges;
 }
 
 /// Provides the current Supabase User
@@ -27,7 +28,8 @@ User? currentAuthUser(CurrentAuthUserRef ref) {
 Future<AppUser?> currentUserProfile(CurrentUserProfileRef ref) async {
   final authUser = ref.watch(currentAuthUserProvider);
   if (authUser == null) return null;
-  return await SupabaseService.getUserProfile();
+  final supabase = ref.read(supabaseServiceProvider);
+  return await supabase.getUserProfile();
 }
 
 /// Auth notifier for handling auth actions
@@ -46,7 +48,8 @@ class AuthNotifier extends _$AuthNotifier {
   }) async {
     state = const AsyncLoading();
     try {
-      await SupabaseService.signUp(
+      final supabase = ref.read(supabaseServiceProvider);
+      await supabase.signUp(
         email: email,
         password: password,
         displayName: displayName,
@@ -66,7 +69,8 @@ class AuthNotifier extends _$AuthNotifier {
   }) async {
     state = const AsyncLoading();
     try {
-      await SupabaseService.signIn(
+      final supabase = ref.read(supabaseServiceProvider);
+      await supabase.signIn(
         email: email,
         password: password,
       );
@@ -86,7 +90,8 @@ class AuthNotifier extends _$AuthNotifier {
     try {
       // Clear FCM token before signing out
       await NotificationService.clearToken();
-      await SupabaseService.signOut();
+      final supabase = ref.read(supabaseServiceProvider);
+      await supabase.signOut();
       state = const AsyncData(null);
     } catch (e, st) {
       state = AsyncError(e, st);
@@ -97,7 +102,8 @@ class AuthNotifier extends _$AuthNotifier {
   Future<bool> resetPassword(String email) async {
     state = const AsyncLoading();
     try {
-      await SupabaseService.resetPassword(email);
+      final supabase = ref.read(supabaseServiceProvider);
+      await supabase.resetPassword(email);
       state = const AsyncData(null);
       return true;
     } catch (e, st) {
