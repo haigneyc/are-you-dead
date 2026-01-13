@@ -10,6 +10,7 @@ import 'features/auth/screens/signup_screen.dart';
 import 'features/check_in/screens/check_in_screen.dart';
 import 'features/contacts/screens/add_contact_screen.dart';
 import 'features/contacts/screens/contacts_screen.dart';
+import 'features/settings/screens/edit_profile_screen.dart';
 import 'features/settings/screens/settings_screen.dart';
 
 /// App router provider
@@ -79,6 +80,12 @@ final routerProvider = Provider<GoRouter>((ref) {
           final contactId = state.pathParameters['id']!;
           return AddContactScreen(contactId: contactId);
         },
+      ),
+
+      // Settings routes (outside shell for full-screen experience)
+      GoRoute(
+        path: '/settings/profile',
+        builder: (context, state) => const EditProfileScreen(),
       ),
     ],
   );

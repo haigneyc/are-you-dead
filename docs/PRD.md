@@ -127,7 +127,8 @@ Alert logged in database
 - [ ] Configure Twilio SMS (pending A2P 10DLC registration)
 - [ ] Verify Resend domain for production emails
 
-### Phase 4: Polish & Launch (Not Started)
+### Phase 4: Polish & Launch (In Progress)
+- [x] Settings improvements (interval selector, notification toggle, profile editing)
 - [ ] Onboarding flow
 - [ ] App icons and screenshots
 - [ ] App store listings
@@ -149,3 +150,4 @@ Alert logged in database
 | 1.5 | 2026-01-12 | Phase 3 progress: Firebase FCM integration, NotificationService, Edge Functions created |
 | 1.6 | 2026-01-13 | Edge Functions deployed, secrets configured, pg_cron jobs set up (Twilio pending A2P registration) |
 | 1.7 | 2026-01-13 | Phase 3 complete: All Edge Functions tested and verified working. SMS pending Twilio A2P, email pending domain verification |
+| 1.8 | 2026-01-13 | Phase 4 started: Settings improvements - check-in interval selector (1-7 days), notification toggle, profile editing screen |

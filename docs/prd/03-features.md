@@ -133,9 +133,9 @@ Body: [Same as SMS + app download link]
 
 | Feature | Description | Status |
 |---------|-------------|--------|
-| Check-in interval | 1-7 days, default 2 | [ ] Pending |
-| Notification preferences | Enable/disable reminders | [ ] Pending |
-| Profile management | Update name, phone, email | [ ] Pending |
+| Check-in interval | 1-7 days, default 2 | [x] Done |
+| Notification preferences | Enable/disable reminders | [x] Done |
+| Profile management | Update name, phone, email | [x] Done |
 | About/Help | App info, FAQ, support | [ ] Pending |
 | Profile display | Show current user info | [x] Done |
 | Logout button | Sign out of account | [x] Done |
