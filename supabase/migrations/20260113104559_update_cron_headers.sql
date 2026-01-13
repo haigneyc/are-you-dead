@@ -9,14 +9,14 @@
 SELECT cron.unschedule('check-missed-checkins');
 SELECT cron.unschedule('schedule-reminders');
 
--- Re-create with updated headers (Authorization for Supabase JWT, X-Cron-Secret for our auth)
--- Replace <SUPABASE_SERVICE_ROLE_KEY> and <CRON_SECRET> with actual values
+-- Re-create with updated headers (Authorization for Supabase Secret API key, X-Cron-Secret for our auth)
+-- Replace <SECRET_API_KEY> and <CRON_SECRET> with actual values from secrets/cron_secrets.json
 SELECT cron.schedule(
   'check-missed-checkins',
   '*/5 * * * *',
   $$SELECT net.http_post(
     url := 'https://gpfiigrthuvlnvsnhifk.supabase.co/functions/v1/check-missed-checkins',
-    headers := '{"Authorization": "Bearer <SUPABASE_SERVICE_ROLE_KEY>", "X-Cron-Secret": "<CRON_SECRET>", "Content-Type": "application/json"}'::jsonb,
+    headers := '{"Authorization": "Bearer <SECRET_API_KEY>", "X-Cron-Secret": "<CRON_SECRET>", "Content-Type": "application/json"}'::jsonb,
     body := '{}'::jsonb
   );$$
 );
@@ -26,7 +26,7 @@ SELECT cron.schedule(
   '0 * * * *',
   $$SELECT net.http_post(
     url := 'https://gpfiigrthuvlnvsnhifk.supabase.co/functions/v1/schedule-reminders',
-    headers := '{"Authorization": "Bearer <SUPABASE_SERVICE_ROLE_KEY>", "X-Cron-Secret": "<CRON_SECRET>", "Content-Type": "application/json"}'::jsonb,
+    headers := '{"Authorization": "Bearer <SECRET_API_KEY>", "X-Cron-Secret": "<CRON_SECRET>", "Content-Type": "application/json"}'::jsonb,
     body := '{}'::jsonb
   );$$
 );

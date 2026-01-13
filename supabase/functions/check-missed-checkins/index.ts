@@ -3,7 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { sendFCMNotification } from "../_shared/fcm.ts";
 
 const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+const supabaseSecretKey = Deno.env.get("SECRET_API_KEY")!;
 const cronSecret = Deno.env.get("CRON_SECRET");
 
 interface OverdueUser {
@@ -31,7 +31,7 @@ serve(async (req) => {
     }
   }
 
-  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+  const supabase = createClient(supabaseUrl, supabaseSecretKey);
 
   try {
     // Get overdue users using database function
@@ -67,7 +67,7 @@ serve(async (req) => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${supabaseServiceKey}`,
+              Authorization: `Bearer ${supabaseSecretKey}`,
             },
             body: JSON.stringify({
               user_id: user.user_id,

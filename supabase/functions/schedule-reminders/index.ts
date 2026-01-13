@@ -3,7 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { sendFCMNotification } from "../_shared/fcm.ts";
 
 const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+const supabaseSecretKey = Deno.env.get("SECRET_API_KEY")!;
 const cronSecret = Deno.env.get("CRON_SECRET");
 
 interface ReminderWindow {
@@ -43,7 +43,7 @@ serve(async (req) => {
     }
   }
 
-  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+  const supabase = createClient(supabaseUrl, supabaseSecretKey);
   const now = new Date();
   const results: Array<{ window: number; usersSent: number; errors: number }> = [];
 

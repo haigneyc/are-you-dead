@@ -129,6 +129,9 @@ Alert logged in database
 
 ### Phase 4: Polish & Launch (In Progress)
 - [x] Settings improvements (interval selector, notification toggle, profile editing)
+- [x] Testing architecture (264 tests: unit, widget, integration, Edge Functions)
+- [x] GitHub Actions CI/CD (automated tests + coverage)
+- [x] Security: Migrated from service_role JWT to Secret API key for cron jobs
 - [ ] Onboarding flow
 - [ ] App icons and screenshots
 - [ ] App store listings
@@ -151,3 +154,5 @@ Alert logged in database
 | 1.6 | 2026-01-13 | Edge Functions deployed, secrets configured, pg_cron jobs set up (Twilio pending A2P registration) |
 | 1.7 | 2026-01-13 | Phase 3 complete: All Edge Functions tested and verified working. SMS pending Twilio A2P, email pending domain verification |
 | 1.8 | 2026-01-13 | Phase 4 started: Settings improvements - check-in interval selector (1-7 days), notification toggle, profile editing screen |
+| 1.9 | 2026-01-13 | Testing architecture: 264 tests (unit, widget, integration, Edge Functions), GitHub Actions CI/CD |
+| 1.10 | 2026-01-13 | Security: Rotated exposed secrets, migrated cron jobs from service_role JWT to Secret API key |
