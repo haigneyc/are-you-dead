@@ -46,6 +46,10 @@ app.*.map.json
 
 # Secrets
 /secrets/
+.env
+
+# Windows Zone.Identifier files (WSL artifacts)
+*:Zone.Identifier
 
 # Firebase config files (contain API keys)
 android/app/google-services.json
