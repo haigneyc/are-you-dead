@@ -222,6 +222,8 @@ function checkMissedCheckins() {
 
 **Via Twilio**
 
+> **Note**: Twilio requires A2P 10DLC registration for US SMS. This involves registering your brand and campaign, which requires a live website and business information. See https://www.twilio.com/docs/messaging/compliance/a2p-10dlc
+
 ```
 To: +1 (555) 123-4567
 From: +1 (555) 000-0000
@@ -240,6 +242,8 @@ If you can't reach Alex, consider requesting a wellness check from local authori
 ### Email Alert
 
 **Via Resend**
+
+> **Note**: Resend requires a verified domain to send to arbitrary recipients. During development, use `onboarding@resend.dev` which can only send to the account owner's email. For production, verify your domain at https://resend.com/domains.
 
 ```
 From: Are You Dead? <alerts@areyoudead.app>

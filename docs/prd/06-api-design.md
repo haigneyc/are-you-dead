@@ -236,13 +236,15 @@ serve(async (req) => {
 **Cron Setup** (in Supabase dashboard or via pg_cron):
 
 ```sql
+-- Note: Uses X-Cron-Secret header for custom auth (separate from Supabase JWT in Authorization)
 SELECT cron.schedule(
   'check-missed-checkins',
   '*/5 * * * *',  -- Every 5 minutes
   $$
   SELECT net.http_post(
     url := 'https://YOUR_PROJECT.supabase.co/functions/v1/check-missed-checkins',
-    headers := '{"Authorization": "Bearer YOUR_CRON_SECRET"}'::jsonb
+    headers := '{"Authorization": "Bearer YOUR_SERVICE_ROLE_JWT", "X-Cron-Secret": "YOUR_CRON_SECRET", "Content-Type": "application/json"}'::jsonb,
+    body := '{}'::jsonb
   );
   $$
 );

@@ -110,7 +110,7 @@ Alert logged in database
 - [x] Emergency contacts CRUD (list, add, edit, delete)
 - [x] Contact validation (phone, email, name)
 
-### Phase 3: Notifications & Alerts (In Progress)
+### Phase 3: Notifications & Alerts (Completed)
 - [x] Firebase project setup
 - [x] Push notification service (NotificationService)
 - [x] FCM token registration and storage
@@ -120,10 +120,12 @@ Alert logged in database
 - [x] Edge Function: send-alert (Twilio SMS + Resend email)
 - [x] Edge Function: check-missed-checkins
 - [x] FCM v1 API with OAuth2 service account
-- [ ] Deploy Edge Functions to Supabase
-- [ ] Configure Supabase secrets (Twilio, Resend, FCM)
-- [ ] Set up pg_cron jobs
-- [ ] End-to-end testing
+- [x] Deploy Edge Functions to Supabase
+- [x] Configure Supabase secrets (FCM, Resend, CRON)
+- [x] Set up pg_cron jobs (5-min check, hourly reminders)
+- [x] End-to-end testing (all functions verified working)
+- [ ] Configure Twilio SMS (pending A2P 10DLC registration)
+- [ ] Verify Resend domain for production emails
 
 ### Phase 4: Polish & Launch (Not Started)
 - [ ] Onboarding flow
@@ -145,3 +147,5 @@ Alert logged in database
 | 1.3 | 2026-01-12 | Phase 2 progress: check-in UI, Supabase integration, updated key naming (publishable/secret) |
 | 1.4 | 2026-01-12 | Phase 2 complete: Emergency contacts CRUD with validation |
 | 1.5 | 2026-01-12 | Phase 3 progress: Firebase FCM integration, NotificationService, Edge Functions created |
+| 1.6 | 2026-01-13 | Edge Functions deployed, secrets configured, pg_cron jobs set up (Twilio pending A2P registration) |
+| 1.7 | 2026-01-13 | Phase 3 complete: All Edge Functions tested and verified working. SMS pending Twilio A2P, email pending domain verification |

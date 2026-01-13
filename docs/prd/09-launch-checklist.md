@@ -113,21 +113,21 @@ safety,check-in,living alone,emergency contact,wellness check,solo living,elderl
 
 ### Technical Pre-Launch
 
-- [ ] **Backend**
-  - [ ] Supabase project created (production)
-  - [ ] Database migrations applied
-  - [ ] RLS policies verified
-  - [ ] Edge Functions deployed
-  - [ ] Environment variables set
-  - [ ] Cron jobs configured (5-min check, hourly reminders)
+- [x] **Backend**
+  - [x] Supabase project created (production)
+  - [x] Database migrations applied
+  - [x] RLS policies verified
+  - [x] Edge Functions deployed
+  - [x] Environment variables set
+  - [x] Cron jobs configured (5-min check, hourly reminders)
 
 - [ ] **External Services**
-  - [ ] Twilio account verified
+  - [ ] Twilio account verified (pending A2P 10DLC registration)
   - [ ] Twilio phone number purchased
-  - [ ] Resend domain verified
-  - [ ] Firebase project configured
+  - [ ] Resend domain verified (using test mode currently)
+  - [x] Firebase project configured
   - [ ] APNs certificates uploaded
-  - [ ] FCM server key generated
+  - [x] FCM service account configured
 
 - [ ] **App Build**
   - [ ] Flutter build passing (iOS + Android)

@@ -23,10 +23,10 @@ interface EmergencyContact {
 }
 
 serve(async (req) => {
-  // Verify cron secret if set
+  // Verify cron secret if set (use X-Cron-Secret header to avoid conflict with Supabase JWT)
   if (cronSecret) {
-    const authHeader = req.headers.get("Authorization");
-    if (authHeader !== `Bearer ${cronSecret}`) {
+    const cronHeader = req.headers.get("X-Cron-Secret");
+    if (cronHeader !== cronSecret) {
       return new Response("Unauthorized", { status: 401 });
     }
   }
