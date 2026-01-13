@@ -1,0 +1,13 @@
+{
+  "tasks": {
+    "test": "deno test --allow-env --allow-net",
+    "test:coverage": "deno test --allow-env --allow-net --coverage=coverage",
+    "coverage": "deno coverage coverage --lcov --output=coverage.lcov"
+  },
+  "imports": {
+    "std/": "https://deno.land/std@0.168.0/"
+  },
+  "compilerOptions": {
+    "strict": true
+  }
+}
