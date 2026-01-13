@@ -2,8 +2,8 @@
 
 A safety check-in app for people living alone.
 
-[![Tests](https://github.com/YOUR_USERNAME/are-you-dead/actions/workflows/test.yml/badge.svg)](https://github.com/YOUR_USERNAME/are-you-dead/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/YOUR_USERNAME/are-you-dead/branch/main/graph/badge.svg)](https://codecov.io/gh/YOUR_USERNAME/are-you-dead)
+[![Tests](https://github.com/YOUR_USERNAME/are-you-dead/actions/workflows/test.yml/badge.svg)](https://github.com/haigneyc/are-you-dead/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/YOUR_USERNAME/are-you-dead/branch/main/graph/badge.svg)](https://codecov.io/gh/haigneyc/are-you-dead)
 
 ## Overview
 
