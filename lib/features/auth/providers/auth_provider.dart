@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../models/user.dart';
+import '../../../services/notification_service.dart';
 import '../../../services/supabase_service.dart';
 
 part 'auth_provider.g.dart';
@@ -69,6 +70,8 @@ class AuthNotifier extends _$AuthNotifier {
         email: email,
         password: password,
       );
+      // Register FCM token after successful sign in
+      await NotificationService.registerToken();
       state = const AsyncData(null);
       return true;
     } catch (e, st) {
@@ -81,6 +84,8 @@ class AuthNotifier extends _$AuthNotifier {
   Future<void> signOut() async {
     state = const AsyncLoading();
     try {
+      // Clear FCM token before signing out
+      await NotificationService.clearToken();
       await SupabaseService.signOut();
       state = const AsyncData(null);
     } catch (e, st) {

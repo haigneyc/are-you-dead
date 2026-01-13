@@ -1,8 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app.dart';
 import 'core/constants/supabase_constants.dart';
+import 'services/notification_service.dart';
 import 'services/supabase_service.dart';
 
 void main() async {
@@ -14,8 +16,14 @@ void main() async {
     return;
   }
 
+  // Initialize Firebase
+  await Firebase.initializeApp();
+
   // Initialize Supabase
   await SupabaseService.initialize();
+
+  // Initialize Notification Service (after Supabase, needs auth context)
+  await NotificationService.initialize();
 
   runApp(
     const ProviderScope(

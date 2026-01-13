@@ -11,9 +11,9 @@
 | **Mobile** | Flutter 3.x + Dart | Cross-platform, single codebase, great DX | [x] Done |
 | **State Management** | Riverpod | Type-safe, testable, recommended for Flutter | [x] Done |
 | **Backend** | Supabase | Auth, Postgres, Edge Functions, Realtime | [x] Client integrated |
-| **Push Notifications** | Firebase Cloud Messaging | Industry standard, free tier generous | [ ] Pending |
-| **SMS** | Twilio | Reliable, good API, reasonable pricing | [ ] Pending |
-| **Email** | Resend | Modern API, good deliverability | [ ] Pending |
+| **Push Notifications** | Firebase Cloud Messaging | Industry standard, free tier generous | [x] Integrated |
+| **SMS** | Twilio | Reliable, good API, reasonable pricing | [x] Edge Function ready |
+| **Email** | Resend | Modern API, good deliverability | [x] Edge Function ready |
 
 ---
 
@@ -85,16 +85,16 @@
 - [ ] `features/auth/widgets/auth_form.dart`
 
 **Check-In Feature:**
-- [x] `features/check_in/screens/check_in_screen.dart` (placeholder)
-- [ ] `features/check_in/providers/check_in_provider.dart`
-- [ ] `features/check_in/widgets/check_in_button.dart`
-- [ ] `features/check_in/widgets/countdown_timer.dart`
+- [x] `features/check_in/screens/check_in_screen.dart`
+- [x] `features/check_in/providers/check_in_provider.dart`
+- [x] `features/check_in/widgets/check_in_button.dart`
+- [x] `features/check_in/widgets/countdown_timer.dart`
 
 **Contacts Feature:**
-- [x] `features/contacts/screens/contacts_screen.dart` (placeholder)
-- [ ] `features/contacts/screens/add_contact_screen.dart`
-- [ ] `features/contacts/providers/contacts_provider.dart`
-- [ ] `features/contacts/widgets/contact_card.dart`
+- [x] `features/contacts/screens/contacts_screen.dart`
+- [x] `features/contacts/screens/add_contact_screen.dart`
+- [x] `features/contacts/providers/contacts_provider.dart`
+- [x] `features/contacts/widgets/contact_card.dart`
 
 **Settings Feature:**
 - [x] `features/settings/screens/settings_screen.dart`
@@ -102,12 +102,12 @@
 
 **Models:**
 - [x] `models/user.dart`
-- [ ] `models/emergency_contact.dart`
-- [ ] `models/check_in.dart`
+- [x] `models/emergency_contact.dart`
+- [x] `models/check_in.dart`
 
 **Services:**
 - [x] `services/supabase_service.dart` - Supabase client wrapper
-- [ ] `services/notification_service.dart` - FCM handling
+- [x] `services/notification_service.dart` - FCM handling
 - [ ] `services/storage_service.dart` - Local persistence
 
 **Widgets:**
@@ -222,15 +222,17 @@ See [05-database-schema.md](05-database-schema.md) for full schema.
 
 | Function | Trigger | Purpose | Status |
 |----------|---------|---------|--------|
-| `check-missed-checkins` | Cron (every 5 min) | Find overdue users, trigger alerts | [ ] Pending |
-| `send-alert` | HTTP (internal) | Send SMS + email to contacts | [ ] Pending |
-| `schedule-reminders` | Cron (every hour) | Queue push notifications | [ ] Pending |
+| `check-missed-checkins` | Cron (every 5 min) | Find overdue users, trigger alerts | [x] Created |
+| `send-alert` | HTTP (internal) | Send SMS + email to contacts | [x] Created |
+| `schedule-reminders` | Cron (every hour) | Queue push notifications | [x] Created |
+
+**Note**: Edge Functions are created in `supabase/functions/` but need to be deployed with `supabase functions deploy`.
 
 ### Authentication
 
 - [x] **Provider**: Supabase Auth (email/password)
 - [x] **Session**: JWT tokens, auto-refresh
-- [ ] **Security**: RLS policies on all tables (requires DB setup)
+- [x] **Security**: RLS policies on all tables
 
 ---
 
@@ -309,7 +311,7 @@ USING (auth.uid() = id);
 
 - All endpoints require authentication
 - Rate limiting on Supabase (built-in)
-- Edge Functions use service role only for alerts
+- Edge Functions use secret key only for alerts
 
 ### Privacy
 

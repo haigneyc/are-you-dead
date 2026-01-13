@@ -172,7 +172,8 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+// Secret key (Supabase auto-injects as SERVICE_ROLE_KEY)
+const supabaseSecretKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
 serve(async (req) => {
   // Verify cron secret (optional security)
@@ -181,7 +182,7 @@ serve(async (req) => {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+  const supabase = createClient(supabaseUrl, supabaseSecretKey);
 
   // Get overdue users (using database function)
   const { data: overdueUsers, error } = await supabase
@@ -210,7 +211,7 @@ serve(async (req) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${supabaseServiceKey}`,
+          "Authorization": `Bearer ${supabaseSecretKey}`,
         },
         body: JSON.stringify({
           user_id: user.user_id,
@@ -496,7 +497,7 @@ async function sendFCMNotification(token: string, notification: { title: string;
 | Variable | Description | Required |
 |----------|-------------|----------|
 | `SUPABASE_URL` | Supabase project URL | Yes (auto) |
-| `SUPABASE_SERVICE_ROLE_KEY` | Service role key | Yes (auto) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Secret key (bypasses RLS) | Yes (auto) |
 | `TWILIO_ACCOUNT_SID` | Twilio account ID | Yes |
 | `TWILIO_AUTH_TOKEN` | Twilio auth token | Yes |
 | `TWILIO_PHONE_NUMBER` | Twilio sending number | Yes |

@@ -40,10 +40,10 @@
 
 | Feature | Description | Status |
 |---------|-------------|--------|
-| Check-in button | Large, prominent button on main screen | [ ] Pending |
-| Countdown timer | Shows time until next check-in due | [ ] Pending |
-| Check-in confirmation | Visual/haptic feedback on success | [ ] Pending |
-| Check-in history | Record of all check-ins (backend) | [ ] Pending |
+| Check-in button | Large, prominent button on main screen | [x] Done |
+| Countdown timer | Shows time until next check-in due | [x] Done |
+| Check-in confirmation | Visual/haptic feedback on success | [x] Done |
+| Check-in history | Record of all check-ins (backend) | [x] Done |
 
 **UI Requirements**:
 - Button must be >100pt diameter
@@ -66,10 +66,10 @@ On check-in:
 
 | Feature | Description | Status |
 |---------|-------------|--------|
-| Add contact | Name, phone (required), email (optional) | [ ] Pending |
-| Edit contact | Update any field | [ ] Pending |
-| Delete contact | Remove contact with confirmation | [ ] Pending |
-| Contact list | View all saved contacts | [ ] Pending |
+| Add contact | Name, phone (required), email (optional) | [x] Done |
+| Edit contact | Update any field | [x] Done |
+| Delete contact | Remove contact with confirmation | [x] Done |
+| Contact list | View all saved contacts | [x] Done |
 | Minimum validation | At least 1 contact required | [ ] Pending |
 
 **Validation Rules**:
@@ -84,14 +84,18 @@ On check-in:
 
 | Feature | Description | Status |
 |---------|-------------|--------|
-| Reminder at 24h | "Check in tomorrow to let contacts know you're OK" | [ ] Pending |
-| Reminder at 6h | "Check-in due in 6 hours" | [ ] Pending |
-| Reminder at 1h | "Last chance! Check in within 1 hour" | [ ] Pending |
-| Overdue notice | "You missed your check-in. Contacts will be notified." | [ ] Pending |
+| Reminder at 24h | "Check in tomorrow to let contacts know you're OK" | [x] Done |
+| Reminder at 6h | "Check-in due in 6 hours" | [x] Done |
+| Reminder at 1h | "Last chance! Check in within 1 hour" | [x] Done |
+| Overdue notice | "You missed your check-in. Contacts will be notified." | [x] Done |
+| FCM token registration | Save token to user profile | [x] Done |
+| Foreground notifications | Show local notification when app is open | [x] Done |
 
 **Implementation**:
-- Firebase Cloud Messaging
-- Scheduled via Supabase cron job
+- Firebase Cloud Messaging (FCM v1 API)
+- NotificationService in Flutter app
+- Edge Function: schedule-reminders (cron hourly)
+- Android notification channels configured
 - Deep link to app on tap
 
 ---
@@ -100,10 +104,16 @@ On check-in:
 
 | Feature | Description | Status |
 |---------|-------------|--------|
-| SMS to contacts | Automated SMS when check-in missed | [ ] Pending |
-| Email to contacts | Automated email when check-in missed | [ ] Pending |
-| Grace period | 1 hour after deadline before alerting | [ ] Pending |
-| Duplicate prevention | No repeat alerts within 24 hours | [ ] Pending |
+| SMS to contacts | Automated SMS when check-in missed | [x] Done |
+| Email to contacts | Automated email when check-in missed | [x] Done |
+| Grace period | 1 hour after deadline before alerting | [x] Done |
+| Duplicate prevention | No repeat alerts within 24 hours | [x] Done |
+
+**Implementation**:
+- Edge Function: send-alert (Twilio SMS + Resend email)
+- Edge Function: check-missed-checkins (cron every 5 min)
+- Uses get_overdue_users() database function
+- Logs all alerts to alerts_sent table
 
 **Alert Message Template**:
 ```

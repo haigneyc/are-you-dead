@@ -296,8 +296,8 @@ CREATE POLICY "Users can view own alerts"
     ON alerts_sent FOR SELECT
     USING (auth.uid() = user_id);
 
--- Service role bypass for Edge Functions
--- (Edge Functions use service_role key which bypasses RLS)
+-- Secret key bypass for Edge Functions
+-- (Edge Functions use secret key which bypasses RLS)
 ```
 
 ---

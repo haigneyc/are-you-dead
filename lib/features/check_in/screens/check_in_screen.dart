@@ -1,61 +1,89 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../providers/check_in_provider.dart';
+import '../widgets/check_in_button.dart';
+import '../widgets/countdown_timer.dart';
 
-/// Check-in screen (placeholder for Phase 2)
-class CheckInScreen extends StatelessWidget {
+/// Main check-in screen with countdown timer and check-in button
+class CheckInScreen extends ConsumerWidget {
   const CheckInScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final checkInState = ref.watch(checkInNotifierProvider);
+    final isOverdue = ref.watch(isOverdueProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Check In'),
       ),
-      body: Center(
+      body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Placeholder check-in button
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.primary.withValues(alpha: 0.2),
-                  border: Border.all(
-                    color: AppColors.primary,
-                    width: 4,
-                  ),
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.favorite,
-                    size: 48,
-                    color: AppColors.primary,
-                  ),
-                ),
+              const Spacer(flex: 2),
+              // Countdown timer
+              CountdownTimer(nextDue: checkInState.nextDue),
+              const Spacer(flex: 1),
+              // Check-in button
+              CheckInButton(
+                onPressed: () {
+                  ref.read(checkInNotifierProvider.notifier).checkIn();
+                },
+                isShowingSuccess: checkInState.isShowingSuccess,
+                isOverdue: isOverdue,
               ),
-              const SizedBox(height: 24),
-              Text(
-                'Check-In Feature',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Coming in Phase 2',
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppColors.textSecondary,
-                ),
-              ),
+              const Spacer(flex: 1),
+              // Last check-in info
+              _buildLastCheckInInfo(context, checkInState.lastCheckIn),
+              const Spacer(flex: 2),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildLastCheckInInfo(BuildContext context, DateTime? lastCheckIn) {
+    if (lastCheckIn == null) {
+      return Text(
+        "You haven't checked in yet",
+        style: TextStyle(
+          fontSize: 14,
+          color: AppColors.textSecondary,
+        ),
+      );
+    }
+
+    final now = DateTime.now();
+    final diff = now.difference(lastCheckIn);
+    final timeAgo = _formatTimeAgo(diff);
+
+    return Text(
+      'Last check-in: $timeAgo',
+      style: TextStyle(
+        fontSize: 14,
+        color: AppColors.textSecondary,
+      ),
+    );
+  }
+
+  String _formatTimeAgo(Duration duration) {
+    final days = duration.inDays;
+    final hours = duration.inHours % 24;
+    final minutes = duration.inMinutes % 60;
+
+    if (days > 0) {
+      return '$days day${days > 1 ? 's' : ''} ago';
+    } else if (hours > 0) {
+      return '$hours hour${hours > 1 ? 's' : ''} ago';
+    } else if (minutes > 0) {
+      return '$minutes minute${minutes > 1 ? 's' : ''} ago';
+    } else {
+      return 'Just now';
+    }
   }
 }

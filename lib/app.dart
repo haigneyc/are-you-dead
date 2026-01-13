@@ -8,6 +8,7 @@ import 'features/auth/screens/forgot_password_screen.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/auth/screens/signup_screen.dart';
 import 'features/check_in/screens/check_in_screen.dart';
+import 'features/contacts/screens/add_contact_screen.dart';
 import 'features/contacts/screens/contacts_screen.dart';
 import 'features/settings/screens/settings_screen.dart';
 
@@ -65,6 +66,19 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const SettingsScreen(),
           ),
         ],
+      ),
+
+      // Contact management routes (outside shell for full-screen experience)
+      GoRoute(
+        path: '/contacts/add',
+        builder: (context, state) => const AddContactScreen(),
+      ),
+      GoRoute(
+        path: '/contacts/edit/:id',
+        builder: (context, state) {
+          final contactId = state.pathParameters['id']!;
+          return AddContactScreen(contactId: contactId);
+        },
       ),
     ],
   );

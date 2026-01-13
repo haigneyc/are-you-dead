@@ -99,23 +99,31 @@ Alert logged in database
 - [x] Settings screen (profile display, logout)
 - [x] Placeholder screens (check-in, contacts)
 
-### Phase 2: Core Features (Not Started)
-- [ ] Supabase project setup (user action)
-- [ ] Database migrations
-- [ ] Check-in button with animation
-- [ ] Countdown timer
-- [ ] Check-in history (backend)
-- [ ] Emergency contacts CRUD
-- [ ] Contact validation
+### Phase 2: Core Features (Completed)
+- [x] Supabase project setup (user action)
+- [x] Database migrations (tables, RLS, functions)
+- [x] Check-in button with animation
+- [x] Countdown timer (color-coded urgency)
+- [x] Check-in history (backend via perform_check_in)
+- [x] Check-in persists to Supabase
+- [x] Auto-create user profile on first login
+- [x] Emergency contacts CRUD (list, add, edit, delete)
+- [x] Contact validation (phone, email, name)
 
-### Phase 3: Notifications & Alerts (Not Started)
-- [ ] Firebase project setup
-- [ ] Push notification service
-- [ ] Reminder notifications (24h, 6h, 1h)
-- [ ] Twilio SMS integration
-- [ ] Resend email integration
-- [ ] Alert Edge Functions
-- [ ] Cron job for missed check-ins
+### Phase 3: Notifications & Alerts (In Progress)
+- [x] Firebase project setup
+- [x] Push notification service (NotificationService)
+- [x] FCM token registration and storage
+- [x] Local notification handling (foreground)
+- [x] Android notification channels
+- [x] Edge Function: schedule-reminders (24h, 6h, 1h)
+- [x] Edge Function: send-alert (Twilio SMS + Resend email)
+- [x] Edge Function: check-missed-checkins
+- [x] FCM v1 API with OAuth2 service account
+- [ ] Deploy Edge Functions to Supabase
+- [ ] Configure Supabase secrets (Twilio, Resend, FCM)
+- [ ] Set up pg_cron jobs
+- [ ] End-to-end testing
 
 ### Phase 4: Polish & Launch (Not Started)
 - [ ] Onboarding flow
@@ -134,3 +142,6 @@ Alert logged in database
 | 1.0 | 2026-01-12 | Initial PRD |
 | 1.1 | 2026-01-12 | Added User Actions document (non-code work) |
 | 1.2 | 2026-01-12 | Added implementation progress checklist |
+| 1.3 | 2026-01-12 | Phase 2 progress: check-in UI, Supabase integration, updated key naming (publishable/secret) |
+| 1.4 | 2026-01-12 | Phase 2 complete: Emergency contacts CRUD with validation |
+| 1.5 | 2026-01-12 | Phase 3 progress: Firebase FCM integration, NotificationService, Edge Functions created |

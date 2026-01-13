@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../core/constants/supabase_constants.dart';
+import '../models/emergency_contact.dart';
 import '../models/user.dart';
 
 /// Service for interacting with Supabase
@@ -14,13 +15,14 @@ class SupabaseService {
     if (!SupabaseConstants.isConfigured) {
       throw Exception(
         'Supabase is not configured. '
-        'Please provide SUPABASE_URL and SUPABASE_ANON_KEY via --dart-define',
+        'Please provide SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY via --dart-define',
       );
     }
 
     await Supabase.initialize(
       url: SupabaseConstants.url,
-      anonKey: SupabaseConstants.anonKey,
+      // SDK uses 'anonKey' param name, but this is the publishable key
+      anonKey: SupabaseConstants.publishableKey,
     );
   }
 
@@ -92,18 +94,38 @@ class SupabaseService {
     });
   }
 
-  /// Get current user profile
+  /// Get current user profile, creating it if it doesn't exist
   static Future<AppUser?> getUserProfile() async {
     final user = currentUser;
     if (user == null) return null;
 
+    // Try to get existing profile
     final response = await client
+        .from('users')
+        .select()
+        .eq('id', user.id)
+        .maybeSingle();
+
+    if (response != null) {
+      return AppUser.fromJson(response);
+    }
+
+    // Profile doesn't exist - create it
+    // This handles the case where email confirmation bypassed profile creation
+    await _createUserProfile(
+      userId: user.id,
+      email: user.email ?? '',
+      displayName: user.userMetadata?['display_name'] as String?,
+    );
+
+    // Fetch the newly created profile
+    final newResponse = await client
         .from('users')
         .select()
         .eq('id', user.id)
         .single();
 
-    return AppUser.fromJson(response);
+    return AppUser.fromJson(newResponse);
   }
 
   /// Update user profile
@@ -137,5 +159,125 @@ class SupabaseService {
 
     // Sign out
     await signOut();
+  }
+
+  // --- FCM Token ---
+
+  /// Update FCM token for push notifications
+  static Future<void> updateFCMToken(String? token) async {
+    final user = currentUser;
+    if (user == null) return;
+
+    await client
+        .from('users')
+        .update({'fcm_token': token})
+        .eq('id', user.id);
+  }
+
+  // --- Check-In ---
+
+  /// Perform a check-in using the database function
+  /// Returns the updated user profile
+  static Future<AppUser> performCheckIn() async {
+    final user = currentUser;
+    if (user == null) throw Exception('Not authenticated');
+
+    // Call the database function
+    await client.rpc('perform_check_in', params: {'p_user_id': user.id});
+
+    // Return updated user profile
+    final profile = await getUserProfile();
+    if (profile == null) throw Exception('Failed to get user profile');
+    return profile;
+  }
+
+  // --- Emergency Contacts ---
+
+  /// Maximum number of contacts allowed per user
+  static const int maxContacts = 5;
+
+  /// Get all emergency contacts for the current user
+  static Future<List<EmergencyContact>> getContacts() async {
+    final user = currentUser;
+    if (user == null) throw Exception('Not authenticated');
+
+    final response = await client
+        .from('emergency_contacts')
+        .select()
+        .eq('user_id', user.id)
+        .order('priority');
+
+    return (response as List)
+        .map((json) => EmergencyContact.fromJson(json))
+        .toList();
+  }
+
+  /// Add a new emergency contact
+  static Future<EmergencyContact> addContact({
+    required String name,
+    required String phone,
+    String? email,
+  }) async {
+    final user = currentUser;
+    if (user == null) throw Exception('Not authenticated');
+
+    // Check contact limit
+    final existingContacts = await getContacts();
+    if (existingContacts.length >= maxContacts) {
+      throw Exception('Maximum of $maxContacts contacts allowed');
+    }
+
+    // Calculate next priority
+    final nextPriority = existingContacts.isEmpty
+        ? 1
+        : existingContacts.map((c) => c.priority).reduce((a, b) => a > b ? a : b) + 1;
+
+    final response = await client.from('emergency_contacts').insert({
+      'user_id': user.id,
+      'name': name,
+      'phone': phone,
+      'email': email,
+      'priority': nextPriority,
+    }).select().single();
+
+    return EmergencyContact.fromJson(response);
+  }
+
+  /// Update an existing emergency contact
+  static Future<void> updateContact({
+    required String contactId,
+    String? name,
+    String? phone,
+    String? email,
+    int? priority,
+  }) async {
+    final user = currentUser;
+    if (user == null) throw Exception('Not authenticated');
+
+    final updates = <String, dynamic>{};
+    if (name != null) updates['name'] = name;
+    if (phone != null) updates['phone'] = phone;
+    if (email != null) updates['email'] = email;
+    if (priority != null) updates['priority'] = priority;
+
+    if (updates.isNotEmpty) {
+      await client
+          .from('emergency_contacts')
+          .update(updates)
+          .eq('id', contactId)
+          .eq('user_id', user.id);
+    }
+  }
+
+  /// Delete an emergency contact
+  static Future<void> deleteContact(String contactId) async {
+    final user = currentUser;
+    if (user == null) throw Exception('Not authenticated');
+
+    await client
+        .from('emergency_contacts')
+        .delete()
+        .eq('id', contactId)
+        .eq('user_id', user.id);
   }
 }

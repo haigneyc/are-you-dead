@@ -53,7 +53,7 @@ This document covers all the **human tasks** required to bring the app to lifeâ€
 1. Go to https://supabase.com
 2. Sign up with GitHub
 3. Create new project (choose region closest to users)
-4. Note down: Project URL, anon key, service role key
+4. Note down: Project URL, publishable key, secret key
 5. Enable Edge Functions
 6. Set up pg_cron extension (for scheduled jobs)
 
@@ -539,7 +539,7 @@ iOS & Android | $1.99 one-time
 - [ ] Apple Developer enrolled
 - [ ] Google Play Console registered
 - [ ] Domain purchased
-- [ ] Supabase project created
+- [x] Supabase project created
 - [ ] Firebase project created
 - [ ] Twilio account set up
 - [ ] Resend account set up
