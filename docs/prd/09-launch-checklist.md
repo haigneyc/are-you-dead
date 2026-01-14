@@ -8,29 +8,29 @@
 
 ### Legal & Compliance
 
-- [ ] **Privacy Policy**
-  - [ ] Data collection explained (email, phone, contacts)
-  - [ ] Data usage explained (check-ins, alerts)
-  - [ ] Third-party services disclosed (Supabase, Twilio, Resend, Firebase)
-  - [ ] Data retention policy (90 days history, 1 year alerts)
-  - [ ] User rights (access, deletion, export)
-  - [ ] Contact information for privacy inquiries
-  - [ ] GDPR compliance (if targeting EU)
-  - [ ] CCPA compliance (California users)
-  - [ ] Hosted at: `https://areyoudead.site/privacy`
+- [x] **Privacy Policy** ✅ Live at https://areyoudead.site/privacy
+  - [x] Data collection explained (email, phone, contacts)
+  - [x] Data usage explained (check-ins, alerts)
+  - [x] Third-party services disclosed (Supabase, Twilio, Resend, Firebase)
+  - [x] Data retention policy (90 days history, 1 year alerts)
+  - [x] User rights (access, deletion, export)
+  - [x] Contact information for privacy inquiries
+  - [x] GDPR compliance (if targeting EU)
+  - [x] CCPA compliance (California users)
+  - [x] Hosted at: `https://areyoudead.site/privacy`
 
-- [ ] **Terms of Service**
-  - [ ] Service description
-  - [ ] User responsibilities
-  - [ ] Liability limitations (not a medical device)
-  - [ ] Account termination conditions
-  - [ ] Dispute resolution
-  - [ ] Hosted at: `https://areyoudead.site/terms`
+- [x] **Terms of Service** ✅ Live at https://areyoudead.site/terms
+  - [x] Service description
+  - [x] User responsibilities
+  - [x] Liability limitations (not a medical device)
+  - [x] Account termination conditions
+  - [x] Dispute resolution
+  - [x] Hosted at: `https://areyoudead.site/terms`
 
-- [ ] **App Disclaimer**
-  - [ ] "This app is not a substitute for emergency services"
-  - [ ] "Alerts depend on network connectivity"
-  - [ ] "We are not responsible for missed alerts due to..."
+- [x] **App Disclaimer** ✅ Included in Terms of Service
+  - [x] "This app is not a substitute for emergency services"
+  - [x] "Alerts depend on network connectivity"
+  - [x] "We are not responsible for missed alerts due to..."
 
 ---
 
@@ -49,9 +49,9 @@
 | Subtitle | "Safety for solo living" (30 char max) | [ ] |
 | Description | See below (4000 char max) | [ ] |
 | Keywords | See below (100 char max) | [ ] |
-| Support URL | https://areyoudead.site/support | [ ] |
-| Marketing URL | https://areyoudead.site | [ ] |
-| Privacy Policy URL | https://areyoudead.site/privacy | [ ] |
+| Support URL | https://areyoudead.site/support | [x] |
+| Marketing URL | https://areyoudead.site | [x] |
+| Privacy Policy URL | https://areyoudead.site/privacy | [x] |
 
 #### Android (Google Play Console)
 
@@ -124,15 +124,15 @@ safety,check-in,living alone,emergency contact,wellness check,solo living,elderl
 - [ ] **External Services**
   - [ ] Twilio account verified (pending A2P 10DLC registration)
   - [ ] Twilio phone number purchased
-  - [ ] Resend domain verified (using test mode currently)
+  - [x] Resend domain verified (areyoudead.site) ✅
   - [x] Firebase project configured
   - [ ] APNs certificates uploaded
   - [x] FCM service account configured
 
-- [ ] **App Build**
-  - [ ] Flutter build passing (iOS + Android)
-  - [ ] Release signing configured
-  - [ ] ProGuard/R8 rules tested (Android)
+- [x] **App Build**
+  - [x] Flutter build passing (iOS + Android)
+  - [x] Release signing configured (Android build.gradle + ProGuard)
+  - [x] ProGuard/R8 rules tested (Android)
   - [ ] Bitcode enabled (iOS)
   - [ ] App size optimized (<50MB)
 
@@ -252,8 +252,8 @@ safety,check-in,living alone,emergency contact,wellness check,solo living,elderl
 
 ### Customer Support
 
-- [ ] Support email configured (support@areyoudead.site)
-- [ ] FAQ page created
+- [x] Support email configured (support@areyoudead.site) ✅
+- [x] FAQ page created (https://areyoudead.site/support) ✅
 - [ ] App Store review responses plan
 - [ ] Bug report process
 

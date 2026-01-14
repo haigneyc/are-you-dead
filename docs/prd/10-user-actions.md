@@ -538,21 +538,21 @@ iOS & Android | $1.99 one-time
 ### Week 1: Accounts & Legal
 - [ ] Apple Developer enrolled
 - [ ] Google Play Console registered
-- [ ] Domain purchased
+- [x] Domain purchased (areyoudead.site) ✅
 - [x] Supabase project created
-- [ ] Firebase project created
-- [ ] Twilio account set up
-- [ ] Resend account set up
-- [ ] Privacy Policy drafted
-- [ ] Terms of Service drafted
+- [x] Firebase project created
+- [ ] Twilio account set up (pending A2P 10DLC)
+- [x] Resend account set up & domain verified ✅
+- [x] Privacy Policy drafted & live ✅
+- [x] Terms of Service drafted & live ✅
 
 ### Week 2-4: Assets & Content
 - [ ] App icon designed
 - [ ] App description written
 - [ ] Keywords researched
-- [ ] FAQ written
+- [x] FAQ written (https://areyoudead.site/support) ✅
 - [ ] Social media accounts created
-- [ ] Support email configured
+- [x] Support email configured (support@areyoudead.site) ✅
 
 ### Week 5-6: Pre-Launch
 - [ ] Screenshots created
