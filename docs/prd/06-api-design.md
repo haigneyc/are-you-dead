@@ -344,7 +344,7 @@ serve(async (req) => {
           "Authorization": `Bearer ${RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: "Are You Dead? <alerts@areyoudead.app>",
+          from: "Are You Dead? <alerts@areyoudead.site>",
           to: body.contact_email,
           subject: `Safety Check Required - ${body.user_name}`,
           html: `

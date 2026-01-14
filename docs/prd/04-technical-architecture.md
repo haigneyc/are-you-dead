@@ -278,7 +278,7 @@ TWILIO_PHONE_NUMBER=+1234567890
 **Configuration**:
 ```typescript
 RESEND_API_KEY=xxx
-RESEND_FROM_EMAIL=alerts@areyoudead.app
+RESEND_FROM_EMAIL=alerts@areyoudead.site
 ```
 
 **Cost**: Free tier (3,000 emails/month)

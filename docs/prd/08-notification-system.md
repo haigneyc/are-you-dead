@@ -246,7 +246,7 @@ If you can't reach Alex, consider requesting a wellness check from local authori
 > **Note**: Resend requires a verified domain to send to arbitrary recipients. During development, use `onboarding@resend.dev` which can only send to the account owner's email. For production, verify your domain at https://resend.com/domains.
 
 ```
-From: Are You Dead? <alerts@areyoudead.app>
+From: Are You Dead? <alerts@areyoudead.site>
 To: mom@email.com
 Subject: Safety Check Required - Alex
 

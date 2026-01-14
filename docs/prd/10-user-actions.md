@@ -92,7 +92,7 @@ This document covers all the **human tasks** required to bring the app to lifeâ€
 | **Hosting** | Landing page | $0-19/year | 1 hour |
 
 **Domain Options**:
-- `areyoudead.app` - Modern, matches app name
+- `areyoudead.site` - Modern, matches app name
 - `areyoudead.com` - Traditional (if available)
 - `areyoudeadapp.com` - Backup option
 
@@ -345,7 +345,7 @@ iOS & Android | $1.99 one-time
 - Key statistics (if available post-launch)
 - Contact email for press
 
-**Host at**: areyoudead.app/press or Dropbox/Google Drive link
+**Host at**: areyoudead.site/press or Dropbox/Google Drive link
 
 ### Launch Announcement
 
@@ -374,7 +374,7 @@ iOS & Android | $1.99 one-time
 | Type | Purpose | Setup |
 |------|---------|-------|
 | Twilio test number | SMS testing without cost | Use Twilio test credentials |
-| Test email | Email delivery testing | Create test@areyoudead.app |
+| Test email | Email delivery testing | Create test@areyoudead.site |
 | Demo account | App Store review | Create with known credentials |
 
 ### Beta Testers
@@ -399,7 +399,7 @@ iOS & Android | $1.99 one-time
 
 ### Support Email
 
-- Configure support@areyoudead.app
+- Configure support@areyoudead.site
 - Set up email forwarding to personal inbox (for MVP)
 - Consider Help Scout or Intercom later
 
@@ -411,7 +411,7 @@ iOS & Android | $1.99 one-time
 - Privacy Policy link
 - Terms of Service link
 
-**Host at**: areyoudead.app/help or in-app WebView
+**Host at**: areyoudead.site/help or in-app WebView
 
 ### Response Expectations
 

@@ -17,7 +17,7 @@
   - [ ] Contact information for privacy inquiries
   - [ ] GDPR compliance (if targeting EU)
   - [ ] CCPA compliance (California users)
-  - [ ] Hosted at: `https://areyoudead.app/privacy`
+  - [ ] Hosted at: `https://areyoudead.site/privacy`
 
 - [ ] **Terms of Service**
   - [ ] Service description
@@ -25,7 +25,7 @@
   - [ ] Liability limitations (not a medical device)
   - [ ] Account termination conditions
   - [ ] Dispute resolution
-  - [ ] Hosted at: `https://areyoudead.app/terms`
+  - [ ] Hosted at: `https://areyoudead.site/terms`
 
 - [ ] **App Disclaimer**
   - [ ] "This app is not a substitute for emergency services"
@@ -49,9 +49,9 @@
 | Subtitle | "Safety for solo living" (30 char max) | [ ] |
 | Description | See below (4000 char max) | [ ] |
 | Keywords | See below (100 char max) | [ ] |
-| Support URL | https://areyoudead.app/support | [ ] |
-| Marketing URL | https://areyoudead.app | [ ] |
-| Privacy Policy URL | https://areyoudead.app/privacy | [ ] |
+| Support URL | https://areyoudead.site/support | [ ] |
+| Marketing URL | https://areyoudead.site | [ ] |
+| Privacy Policy URL | https://areyoudead.site/privacy | [ ] |
 
 #### Android (Google Play Console)
 
@@ -252,7 +252,7 @@ safety,check-in,living alone,emergency contact,wellness check,solo living,elderl
 
 ### Customer Support
 
-- [ ] Support email configured (support@areyoudead.app)
+- [ ] Support email configured (support@areyoudead.site)
 - [ ] FAQ page created
 - [ ] App Store review responses plan
 - [ ] Bug report process
