@@ -1,0 +1,16 @@
+# Fastfile Appfile for Android
+# Documentation: https://docs.fastlane.tools/advanced/Appfile/
+
+# The package name of your app
+package_name("com.areyoudead.are_you_dead")
+
+# Path to the JSON key file for Google Play Console API access
+# Generate this from Google Cloud Console:
+# 1. Create a service account with "Service Account User" role
+# 2. Add it to Google Play Console with release permissions
+# 3. Download the JSON key file
+#
+# json_key_file("path/to/google-play-service-account.json")
+
+# For more information, see:
+# https://docs.fastlane.tools/actions/upload_to_play_store/

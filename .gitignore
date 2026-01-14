@@ -48,6 +48,11 @@ app.*.map.json
 /secrets/
 .env
 
+# Android release signing
+android/key.properties
+*.keystore
+*.jks
+
 # Windows Zone.Identifier files (WSL artifacts)
 *:Zone.Identifier
 

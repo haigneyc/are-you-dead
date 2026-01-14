@@ -1,0 +1,15 @@
+# Fastfile Appfile for iOS
+# Documentation: https://docs.fastlane.tools/advanced/Appfile/
+
+# The bundle identifier of your app
+app_identifier("com.areyoudead.areYouDead")
+
+# Your Apple Developer Portal username
+# apple_id("your-apple-id@email.com")
+
+# For more information about the Appfile, see:
+# https://docs.fastlane.tools/advanced/Appfile/
+
+# Uncomment and configure these after enrolling in Apple Developer Program:
+# team_id("XXXXXXXXXX")  # Your Apple Developer Team ID
+# itc_team_id("XXXXXXXX")  # Your App Store Connect Team ID (if different)
