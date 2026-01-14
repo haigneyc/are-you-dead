@@ -538,3 +538,4 @@
 | 1.4 | 2026-01-13 | Phase 4 complete: 41 integration tests (auth flow, check-in flow, contacts flow) |
 | 1.5 | 2026-01-13 | Phase 5 complete: 36 Edge Function tests (check-missed-checkins, send-alert, schedule-reminders) |
 | 1.6 | 2026-01-13 | Phase 6 complete: GitHub Actions CI/CD workflow with coverage reporting |
+| 1.7 | 2026-01-13 | CI fix: Updated Flutter 3.24.0 → 3.27.0 for Dart 3.6.1 compatibility |
